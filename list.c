@@ -24,7 +24,7 @@ void insert_pay(lista list, int val, int sender, int receiver, int id_pay) {
 
 void delete_pay(int id_pay, lista list) {
     if (pay_exists(id_pay, list) == 0) {
-        printf("Tranzactia nu exista.\n");
+        printf("Tranzactia nu exista.\n\n");
         return;
     }
     if (list ->head -> id_pay == id_pay) {
@@ -78,8 +78,11 @@ int pay_exists(int id, lista list) {
 void destroy_list(lista list) {
     if (list == NULL)
         return;
-    while (list -> head) {
-        delete_pay(list -> head -> id_pay, list);
+    Tpay p = list->head;
+    while (p != NULL) {
+        Tpay aux = p;
+        p = p->next;
+        free(aux);
     }
 }
 

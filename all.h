@@ -45,11 +45,7 @@ int pay_exists(int id, lista list);
 
 Ttree create_tree();
 int is_empty(Ttree tree);
-Tnode minimum(Tnode x);
-Tnode maximum(Tnode x);
 Tnode search(Ttree tree, int id_key);
-Tnode successor(Tnode x);
-Tnode predecessor(Tnode x);
 void update_height(Tnode x);
 void avl_rotate_left(Ttree tree, Tnode x);
 void avl_rotate_right(Ttree tree, Tnode x);

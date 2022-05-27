@@ -3,20 +3,16 @@
 int main() {
     int id_user = 1;
     int id_pay = 1;
-
     Ttree mytree = create_tree();
 
-    // for (int i = 1; i < 10; i++) {
-    //     char nume[50] = "Florian";
-    //     char prenume[50]  = "Gigi";
-    //     char email[50] = "programator@c.com";
-    //     Tuser key = create_user(id_user++, nume, prenume, email);
-    //     insert_node(mytree, key);
-    // }
-
-    // delete_node(mytree, mytree -> root -> left -> key);
-    // inorder_print(mytree -> root);
-    // destroy_tree(mytree);
+    printf("Bine ai venit in interfata bancara!\n");
+    printf("Ai urmatoarele optiuni:\n\n");
+    printf("insert_user - creeaza un nou client\n");
+    printf("insert_pay - adauga o noua tranzactie\n");
+    printf("delete_user - sterge un client din sistem\n");
+    printf("print_lists - afiseaza toate tranzactiile care au legatura cu un client\n");
+    printf("print_users - afiseaza toti clientii din sistem in ordinea descrescatoare a ID-ului\n");
+    printf("exit - incheie rularea interfetei\n\n");
 
     int exit_flag = 1;
     char buffer[1024] = {0};
@@ -31,7 +27,7 @@ int main() {
             printf("Introdu email-ul:\n");
             scanf("%s", key -> email);
             insert_node(mytree, key);
-            printf("user introdus cu succes...\n");
+            printf("User introdus cu succes...\n\n");
         }
          
         if (strncmp(buffer, "insert_pay", strlen(buffer)) == 0) {
@@ -49,36 +45,36 @@ int main() {
             insert_pay(send -> key -> sent, val, id_sender, id_receiver, id_pay);
             insert_pay(recev -> key -> received, val, id_sender, id_receiver, id_pay);
             id_pay++;
-            printf("Tranzactia a fost introdusa cu succes...\n");
+            printf("Tranzactia a fost introdusa cu succes...\n\n");
         }
          
         if (strncmp(buffer, "delete_user", strlen(buffer)) == 0) {
-            printf("introdu id ul userului...\n");
+            printf("Introdu id ul userului...\n");
             int id_delete = 0;
             scanf("%d", &id_delete);
             delete_node(mytree, id_delete);
-            printf("Stergerea s-a realizat cu succes...\n");
+            printf("Stergerea s-a realizat cu succes...\n\n");
         }
          
         if (strncmp(buffer, "print_lists", strlen(buffer)) == 0) {
-            printf("introdu id ul userului...\n");
+            printf("Introdu id ul userului...\n");
             int temp_user = 0;
             scanf("%d", &temp_user);
             Tnode user_lists = search(mytree, temp_user);
             if (user_lists) {
-                printf("lista de tranzactii trimise:\n");
+                printf("Lista de tranzactii trimise:\n");
                 print_list(user_lists -> key -> sent);
-                printf("lista de tranzactii primite:\n");
+                printf("Lista de tranzactii primite:\n");
                 print_list(user_lists -> key -> received);
-                printf("printarile au fost realizate cu succes...\n");
+                printf("Printarile au fost realizate cu succes...\n\n");
             }
             else
-                printf("Userul nu a fost gasit.\n");
+                printf("Userul nu a fost gasit!\n\n");
         }
         
         if (strncmp(buffer, "print_users", strlen(buffer)) == 0) {
             inorder_print(mytree -> root);
-            printf("printare users s-a realizat cu succes...\n");
+            printf("Printare users s-a realizat cu succes...\n\n");
         }
 
         if (strncmp(buffer, "exit", strlen(buffer)) == 0) {

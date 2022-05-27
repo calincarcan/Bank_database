@@ -68,62 +68,6 @@ Tnode search(Ttree tree, int id_key) {
     return NULL;
 }
 
-Tnode minimum(Tnode x) {
-    if (x == NULL)
-        return NULL;
-    Tnode p = x;
-    while (p->left != NULL) {
-        p = p->left;
-    }
-    return p;
-}
-
-Tnode maximum(Tnode x) {
-    if (x == NULL)
-        return NULL;
-    Tnode p = x;
-    while (p->right != NULL) {
-        p = p->right;
-    }
-    return p;
-}
-
-Tnode successor(Tnode x) {
-    if (x == NULL)
-        return NULL;
-    Tnode p = x;
-    if (p->right != NULL)
-        return minimum(p->right);
-    else {
-        Tnode parent = p->parent;
-        while (parent != NULL) {
-            if (parent->right != p)
-                return parent;
-            p = parent;
-            parent = parent->parent;
-        }
-        return NULL;
-    }
-}
-
-Tnode predecessor(Tnode x) {
-    if (x == NULL)
-        return NULL;
-    Tnode p = x;
-    if (p->left != NULL)
-        return maximum(p->left);
-    else {
-        Tnode parent = p->parent;
-        while (parent != NULL) {
-            if (parent->left != p)
-                return parent;
-            p = parent;
-            parent = parent->parent;
-        }
-        return NULL;
-    }
-}
-
 void update_height(Tnode x) {
 
     long leftHeight = 0;
@@ -136,17 +80,6 @@ void update_height(Tnode x) {
     }
 }
 
-
-/* Functie ce primeste adresa unui arbore si
- * a unui nod x si realizeaza o rotatie la stanga
- * a subarborelui care are varful in x
- *
- *   (x)	 Rotatie    (y)
- *	 / \     stanga     / \
- *  a  (y)    ---->   (x)  c
- *	   / \			  / \
- *    b   c          a   b
- */
 void avl_rotate_left(Ttree tree, Tnode x) {
     if (tree == NULL || x == NULL) return;
     if (x->right == NULL)
@@ -174,17 +107,6 @@ void avl_rotate_left(Ttree tree, Tnode x) {
     x->parent = y;
 }
 
-
-/* Functie ce primeste adresa unui arbore si
- * a unui nod y si realizeaza o rotatie la dreapta
- * a subarborelui care are varful in y
- *
- *     (y)	 Rotatie    (x)
- *	   / \   dreapta    / \
- *   (x)  c   ---->    a  (y)
- *	 / \			      / \
- *  a   b                b   c
- */
 void avl_rotate_right(Ttree tree, Tnode y) {
     if (tree == NULL || y == NULL) return;
     if (y->left == NULL)
@@ -212,10 +134,6 @@ void avl_rotate_right(Ttree tree, Tnode y) {
     y->parent = x;
 }
 
-
-/* Calculeaza factorul de echilibrare pentru un nod x
- * (AVL balance factor)
-*/
 int balance_factor(Tnode x) {
     if (x != NULL) {
         long left_h = 0;
@@ -229,13 +147,6 @@ int balance_factor(Tnode x) {
     return 0;
 }
 
-
-/* Functie pentru reechilibrarea unui arbore AVL
- * in urma unei inserari prin rotatii simple sau duble
- * si recalcularea inaltimii fiecarui nod intalnit parcurgand
- * arborele de jos in sus, spre radacina
- *
- */
 void avl_fix_up(Ttree tree, Tnode y) {
     if (tree == NULL || tree->root == NULL)
         return;
@@ -274,12 +185,6 @@ void avl_fix_up(Ttree tree, Tnode y) {
     }
 }
 
-
-/* Functie pentru crearea unui nod
- *
- * value: valoarea/cheia din cadrul arborelui
- * info: informatia/valoarea din dictionar
- */
 Tnode init_node(Ttree tree, Tuser user) {
 
     if (tree == NULL)
@@ -301,11 +206,6 @@ Tnode init_node(Ttree tree, Tuser user) {
     return node;
 }
 
-
-/* Inserarea unul nou nod in cadrul multi-dictionarului
- * ! In urma adaugarii arborele trebuie sa fie echilibrat
- *
- */
 void insert_node(Ttree tree, Tuser key) {
     if (tree == NULL)
         return;
@@ -336,12 +236,6 @@ void insert_node(Ttree tree, Tuser key) {
     tree->size++;
 }
 
-/* Functie care construieste un arbore
- * pornind de la subarborele stang si subarborele drept
- *
- * Ajuta la eliminarea unui nod din arbore!
- */
-
 Tnode build_tree_pivot(Tnode lt, Tnode rt) {
     Tnode pivot = rt, parent = NULL;
     if (lt == NULL) return rt;
@@ -369,10 +263,6 @@ Tnode build_tree_pivot(Tnode lt, Tnode rt) {
     return pivot;
 }
 
-/* Functie care returneaza primul nod
- * de pe nivelul cel mai de jos
- * dintr-un arbore
- */
 Tnode deepest_node(Tnode root) {
     Tnode p = root, parent = NULL;
     while (p != NULL) {
@@ -391,12 +281,6 @@ void destroy_node(Ttree tree, Tnode node) {
     free(node);
 }
 
-/* Eliminarea unui nod din arbore
- *
- * elem: cheia nodului ce trebuie sters
- * 	! In cazul in care exista chei duplicate
- *	  se va sterge ultimul nod din lista de duplicate
- */
 void delete_node(Ttree tree, int key_id) {
     if (tree == NULL || is_empty(tree)) return;
     Tnode parent = NULL, p = tree->root;
@@ -448,8 +332,6 @@ void destroy_tree_helper(Ttree tree, Tnode root) {
     }
 }
 
-/* Eliberarea memoriei unui arbore
- */
 void destroy_tree(Ttree tree){
     if (tree != NULL) {
         destroy_tree_helper(tree, tree->root);
